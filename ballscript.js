@@ -1,7 +1,7 @@
 var canvas=document.querySelector('canvas')
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
-var c=canvas.getContext("2d");
+var c=canvas.getContext("2d"); 
 var lives=3
 c.fillRect(0, 0, canvas.width, canvas.height)
 
