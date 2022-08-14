@@ -1,6 +1,6 @@
 var canvas=document.querySelector('canvas')
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
+canvas.width=window.innerWidth-25;
+canvas.height=700;
 var c=canvas.getContext("2d"); 
 var lives=3
 c.fillRect(0, 0, canvas.width, canvas.height)
@@ -10,15 +10,17 @@ c.beginPath();
 c.moveTo(0,0)
 var score=0
 
+document.getElementById("title").innerHTML=``;
+
+//spikes
 for (let i=0;i<50;i++){
     c.lineTo(30+(60*i),40);
     c.lineTo(60+60*i,0);
     c.strokeStyle='#ff0000';
     c.fillStyle = "#FF0000";
     c.fill();
-    c.stroke();}
-
-
+    c.stroke();
+}
 
 /*function healthdrop(){
     hx=Math.random()*innerWidth;
@@ -32,8 +34,8 @@ for (let i=0;i<50;i++){
 var platformArray=[];
 var healtharray=[];
 function healthdrop(hx,hy,r){
-    this.x=x;
-    this.y=y;
+    this.x=hx;
+    this.y=hy;
     this.r=r;
 
     this.draw=function(){
@@ -80,6 +82,10 @@ function platform(x,y,w,h){
         this.y += -1;
         this.draw();
     }
+
+    this.healthdrop=function(){
+
+    }
 }
 
 var hp={
@@ -91,7 +97,7 @@ var hp={
 
 let myint
 var ball={
-    x:500,
+    x:(canvas.width)/2,
     y:150,
     x_v:0,
     y_v:0,
@@ -133,7 +139,7 @@ function keydown(e) {
     if(e.keyCode == 37) {
         keys.left = true;
     }
-    // 37 is the code for the up arrow key
+    // 38 is the code for the up arrow key
     if(e.keyCode == 38) {
         if(ball.jump == false) {
             ball.y_v = -6;
@@ -161,12 +167,16 @@ function keyup(e) {
 for(var i=0;i<3;i++){
     
     var platy=700;
-    var w=150;
+    var w=200;
     var h=15;
      myint=setInterval(function() {
         var platx=Math.random()*innerWidth;
         platformArray.push(new platform(platx,platy,w,h));
-        clearInterval(myint);
+
+        //if(platformArray.length%15==0){
+          //  platformArray[platformArray.length-1].healthdrop()
+        //}
+        //clearInterval(myint);
         },1500)
 }
 /*setInterval(function(){
@@ -177,7 +187,7 @@ for(var i=0;i<3;i++){
     },6500)*/
 
 function ballcontrol(){
-     // If the left key is pressed, move the player to the left
+    // If the left key is pressed, move the player to the left
     if(ball.jump == false) {
         ball.x_v *= friction;
     } else {
@@ -187,19 +197,19 @@ function ballcontrol(){
     ball.jump = true;
     if(keys.left) {
         ball.x+= -2.5;
-        }
-         // If the right key is pressed, move the player to the right
+    }
+    // If the right key is pressed, move the player to the right
     if(keys.right) {
         ball.x  += 2.5;
         }
     
     ball.y += ball.y_v;
     ball.x += ball.x_v;
+
 }
 var ct=0
 function animate(){
-    ct++;
-    console.log(ct)
+    
     //console.log(platformArray.length)
     ani=requestAnimationFrame(animate);
     c.clearRect(0,0,innerWidth,innerHeight);
@@ -234,15 +244,15 @@ function animate(){
     for(var i=0;i<platformArray.length;i++){
         
         //console.log(ball.x)
-        if(platformArray[i].x < ball.x +10 && ball.x  < platformArray[i].x + 150/*platformArray[i].w*/ && 
+        if(platformArray[i].x < ball.x +10 && ball.x  < platformArray[i].x + platformArray[i].w && 
         platformArray[i].y< ball.y+30  && ball.y +30 < platformArray[i].y + platformArray[i].h){
             ball.jump = false;
             ball.y = platformArray[i].y-30;
         }
         
-        if ((ball.y<40 || ball.y>700) && platformArray.length>4){
+        if ((ball.y<40 || ball.y>750) && platformArray.length>4){
             ball.y_v=3
-            ball.x=500
+            ball.x=(canvas.width)/2
             ball.y=150
             lives+=-1;
         }
@@ -280,9 +290,11 @@ function animate(){
             
             document.getElementById("restrtbtn").innerHTML=`<button id="q" class="button" onclick='(function(){document.location.reload();})();'>restart</button>`
 
+            document.getElementById('title').innerHTML="BALLGAME"
+
             document.getElementById('over').innerHTML="GAMEOVER"
             document.getElementById('score').innerHTML="SCORE :" + score
-            document.getElementById('highscr').innerHTML="HIGHSCORE :" + hiscr2
+            document.getElementById('highscr').innerHTML="HIGHSCORE :" + localStorage.getItem("highscore")
             
            
         case 1:
