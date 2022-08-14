@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(67, 178, 238);
+    background-color: rgb(245, 224, 131);
 }
 
 .wrap {
@@ -18,7 +18,7 @@ body {
     letter-spacing: 2.5px;
     font-weight: 500;
     color: #000;
-    background-color: rgb(237, 183, 8);
+    background-color: rgb(117, 250, 199);
     border: #df3112;
     border-radius: 45px;
     box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -33,21 +33,29 @@ body {
     color: rgb(227, 148, 122);
     transform: translateY(-7px);
 }
-p0{text-align: center;
+#title{align-items: center;
+    font-family: fantasy;
+    letter-spacing: 6px;
     font-size: 4em;
     color: rgb(17, 5, 246);
 
 }
 p{text-align: center;
+    font-family: fantasy;
+    letter-spacing: 3px;
     font-size: 3em;
     color: rgb(245, 7, 23);
 
 }
-p1{
+#score{
     font-size: 2.5em;
+    font-family: fantasy;
+    letter-spacing: 3px;
     color: rgb(125, 5, 206);
 }
-p2 {
+#highscr {
     font-size: 2.5em;
+    font-family: fantasy;
+    letter-spacing: 3px;
     color: rgb(125, 5, 206);
 }
